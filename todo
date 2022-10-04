@@ -1,0 +1,109 @@
+int	get_div(int y, int j)
+{
+	if (y > 200)
+		j = 6;
+	else if (y > 50 && y <= 200)
+		j = 4;
+	else if (y > 15 && y <= 50)
+		j = 3;
+	else
+		return (1);
+	return (j);
+}
+
+void	smart_push(t_stack *stack_a, t_stack *stack_b, int z, int p)
+{
+	if (stack_a->numbers[stack_a->top - 1] > ((z + p) / 2))
+	{
+		push_b(stack_b, stack_a, 1);
+		rotate_b(stack_b, 1);
+	}
+	else
+		push_b(stack_b, stack_a, 1);
+}
+
+void	all_2b(t_stack *stack_a, t_stack *stack_b)
+{
+	int	m;
+	int	p;
+	int	z;
+	int	j;
+
+	j = 6;
+	m = stack_a->top - 1;
+	z = m / j;
+	p = 0;
+	printf("m => %d\n",j);
+	printf("m => %d\n",m);
+	printf("z => %d\n",z);
+	while (stack_a->top > 0)
+	{
+		if (stack_a->numbers[stack_a->top - 1] <= z)
+			smart_push(stack_a, stack_b, z, p);
+		else
+			rotate_a(stack_a, 1);
+		if (stack_b->top - 1 == z)
+		{
+			j = get_div(stack_a->top - 1, j);
+			p = z;
+			z += (stack_a->top - 1) / j + 1;
+		}
+	}
+}
+
+
+
+	int i;
+	int min;
+	int max;
+	int counttop;
+	int pos;
+	int countbottom;
+
+	countbottom = 0;
+	counttop = 0;
+	i = 0;
+	min = 1;
+	max = size / 2;
+	printf("max %d and min %d\n",max,min);
+	while(stacka[i])
+	{
+		if(stacka[i] >= min && stacka[i] <= max)
+		{
+			pos = i;
+			printf("**** ** * * * * * * Number =>  %d * * * **  ** * * * * * ** \n",stacka[pos]);
+			while(pos > 1)
+			{
+				pos--;
+				counttop++;
+			}
+			printf("top count %d\n",counttop);
+			pos = i + 1;
+			while(pos < size)
+			{
+				countbottom++;
+				pos++;
+			}
+			printf("bottom count %d\n",countbottom);
+			if(counttop < countbottom)
+			{
+				while(counttop > 0)
+				{
+					ra(stacka, size);
+					counttop--;
+				}
+				pb(stacka, stackb, size);
+				pb(stacka, stackb, size);
+			}
+			else{
+				while(countbottom >= 0)
+				{
+					rra(stacka, size);
+					countbottom--;
+				}
+				pb(stacka, stackb, size);
+			}
+			pos = 0;
+		}
+		i++;
+	}
